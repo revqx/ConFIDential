@@ -1,1 +1,3 @@
-data/
+data/*
+!data/class_counts.json
+!data/class_samples.json
