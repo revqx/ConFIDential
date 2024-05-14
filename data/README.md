@@ -31,6 +31,24 @@ python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /p
 
 ### command for dinov2
 ```shell
-python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/
-gen_img_stylegan --model dinov2 --metrics fd
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_stylegan --model dinov2 --metrics fd
 ```
+Our original experiment results for FID score is: `217.07`
+
+### command for calculating FID scores by using dinov2 for ImageNet dataset and DiT generated dataset.
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_dit --model dinov2 --metrics fd
+```
+Our original experiment results for FID score is: `98.69`
+
+### command for calculating FID scores by using dinov2 for ImageNet dataset and latent diffusion model generated dataset.
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_ldm --model dinov2 --metrics fd
+```
+Our original experiment results for FID score is: `99.98`
+
+### command for calculating FID scores by using dinov2 for ImageNet dataset and latent diffusion model generated dataset with unified distribution.
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_ldm_ori/ --model dinov2 --metrics fd
+```
+Our original experiment results for FID score is `99.56`
