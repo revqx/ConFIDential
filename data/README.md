@@ -52,3 +52,42 @@ Our original experiment results for FID score is: `99.98`
 python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_uni  /personal_storage/scout/fid-flaws/data/gen_img_ldm_ori/ --model dinov2 --metrics fd
 ```
 Our original experiment results for FID score is `99.56`
+
+
+## Compute the FID score 50k mentioned in those papers
+### command for calculating fid50k based on real distribution ldm
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_ldm_ori/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `12.67538`.
+
+### command for calculating fid50k based on uniform distribution ldm
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_ldm/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `12.73546`.
+
+### command for calculating fid50k based on uniform distribution dit
+```shell
+# uniform dist
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_dit_ori/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `18.85919`.
+
+### command for calculating fid50k based on uniform distribution dit
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_dit/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `18.84164`.
+
+### command for calculating fid50k based on uniform distribution stylegan
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_stylegan_uni/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `2.86858`.
+
+### command for calculating fid50k based on real distribution stylegan
+```shell
+python -m dgm_eval /personal_storage/scout/fid-flaws/data/ILSVRC2012_img_jpeg  /personal_storage/scout/fid-flaws/data/gen_img_stylegan/ --model inception --metrics fd --save --nsample 1500000
+```
+Our result for FiD50k is `2.36722`.
