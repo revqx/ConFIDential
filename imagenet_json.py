@@ -13,6 +13,7 @@ import os
 import tarfile
 import random
 
+import argparse
 from tqdm import tqdm
 
 import json
@@ -75,17 +76,19 @@ sys.exit()
 class_samples = {}
 for class_name, count in class_counts.items():
     sample_ratio = count / total_images
-    num_samples = int(sample_ratio * val_size)
+    num_samples = round(sample_ratio * val_size)
     class_samples[class_name] = num_samples
 
 # Calculate the remaining samples
-remaining_samples = val_size - sum(class_samples.values())
+# remaining_samples = val_size - sum(class_samples.values())
 
 # Distribute the remaining samples to the classes with the highest sample ratios
+"""
 sorted_samples = sorted(class_samples.items(), key=lambda x: x[1], reverse=True)
 for i in range(remaining_samples):
     class_name, num_samples = sorted_samples[i]
     class_samples[class_name] += 1
+"""
 
 # save the class samples to a JSON file
 class_samples_path = "data/class_samples.json"
