@@ -3,3 +3,5 @@ data/*
 !data/class_counts.json
 !data/class_samples.json
 !data/README.md
+
+src/*

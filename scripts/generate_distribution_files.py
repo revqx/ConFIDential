@@ -14,6 +14,15 @@ Further implementation details:
     - argparse to specify the arguments 
     - the list of labels should be printed in the terminal
     - the list of labels should be saved as a comma-seperated txt file into /class_lists whose name contains the arguments
+
+Random seed is set to 42 for reproducibility.
+
+Usage:
+    python generate_distribution_files.py --dist uniform-static
+    python generate_distribution_files.py --dist uniform-random
+    python generate_distribution_files.py --dist real --dist-file distribution_files/real_distribution.json
+
+Author: Marius Jacobs
 """
 
 import argparse
@@ -32,7 +41,6 @@ def parse_args():
     parser.add_argument('--total_images', type=int, default=50000, help='Total number of images')
     parser.add_argument('--num_classes', type=int, default=1000, help='Number of classes')
     parser.add_argument('--dist-file', type=str, default=None, help='File containing the real distribution, required if distribution is real-distribution')
-    parser.add_argument('--seed', type=int, default=42, help='Random seed')
     args = parser.parse_args()
 
     return args
@@ -42,7 +50,7 @@ def generate_class_list(num_classes: int, total_images: int, distribution: str, 
     Generate a list of class indices according to a specified distribution
     """
 
-    random.seed(seed)
+    random.seed(42)
 
     if distribution == 'uniform-static':
         images_per_class = total_images // num_classes
@@ -74,7 +82,7 @@ def save_class_list(class_list: List[int], num_classes: int, total_images: int, 
     Save the list of class indices as a comma-seperated txt file
     """
 
-    class_list_file = f'class_lists/dist={distribution}_{len(class_list)}_seed={seed}_num_classes={num_classes}.txt'
+    class_list_file = f'distribution_files/dist={distribution}_{len(class_list)}_seed={seed}_num_classes={num_classes}.txt'
     with open(class_list_file, 'w') as f:
         f.write(','.join(map(str, class_list)))
 
