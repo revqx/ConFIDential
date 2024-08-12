@@ -19,3 +19,6 @@
 [submodule "MaskDiT"]
 	path = MaskDiT
 	url = https://github.com/YecanLee/MaskDiT_research
+[submodule "DiT"]
+	path = DiT
+	url = https://github.com/YecanLee/DiT
