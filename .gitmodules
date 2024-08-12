@@ -10,3 +10,6 @@
 [submodule "stylegan-xl"]
 	path = stylegan-xl
 	url = https://github.com/YecanLee/stylegan-xl
+[submodule "VAR"]
+	path = VAR
+	url = https://github.com/YecanLee/VAR
