@@ -4,3 +4,6 @@
 [submodule "mar"]
 	path = mar
 	url = https://github.com/YecanLee/mar
+[submodule "latent-diffusion"]
+	path = latent-diffusion
+	url = https://github.com/YecanLee/latent-diffusion
