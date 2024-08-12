@@ -13,3 +13,6 @@
 [submodule "VAR"]
 	path = VAR
 	url = https://github.com/YecanLee/VAR
+[submodule "MDT"]
+	path = MDT
+	url = https://github.com/YecanLee/MDT_research
