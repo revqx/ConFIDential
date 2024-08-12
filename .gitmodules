@@ -7,3 +7,6 @@
 [submodule "latent-diffusion"]
 	path = latent-diffusion
 	url = https://github.com/YecanLee/latent-diffusion
+[submodule "stylegan-xl"]
+	path = stylegan-xl
+	url = https://github.com/YecanLee/stylegan-xl
