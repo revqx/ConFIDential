@@ -1,32 +1,26 @@
-# fid-flaws
-In this repo, we are going to explore the performance of several newest SOTA model in the filed of Image Generation, this includes [DiT](https://arxiv.org/abs/2212.09748), [latent-diffusion](https://arxiv.org/abs/2112.10752), [MDTv2](https://arxiv.org/abs/2303.14389), [MaskDiT](https://arxiv.org/abs/2306.09305), [StyleGAN-XL](https://arxiv.org/abs/2202.00273), [U-DiTs](https://arxiv.org/abs/2405.02730), [VAR](https://arxiv.org/abs/2404.02905), and the newest SOTA paper [mar](https://arxiv.org/abs/2406.11838). 
+# ConFIDential: Sampling Bias in Ground Truth Based Generative Model Evaluation
 
-## Starting Point ⭐
-To start with understanding this repo's structure, here are the folders inside this repo:
-```shell
-├── DiT
-├── MDT
-├── MaskDiT
-├── README.md
-├── U-DiT
-├── VAR
-├── imagenet_class_index.json
-├── latent-diffusion
-├── mar
-├── scripts
-├── src
-└── stylegan-xl
-``` 
-Each Model has an independent folder, if you want to use those models to generate images based on your own research demands, please first run `git clone  https://github.com/revqx/fid-flaws`, then `cd` into the model folder you want to test.
+In this repo, the impact of sampling bias in FID calculation is evaluated using the models [DiT](https://arxiv.org/abs/2212.09748), [latent-diffusion](https://arxiv.org/abs/2112.10752), [MDTv2](https://arxiv.org/abs/2303.14389), [MaskDiT](https://arxiv.org/abs/2306.09305), [Guided Diffusion](https://arxiv.org/abs/2312.08825), [StyleGAN-XL](https://arxiv.org/abs/2202.00273), [U-DiTs](https://arxiv.org/abs/2405.02730), [VAR](https://arxiv.org/abs/2404.02905), [LlamaGen](https://arxiv.org/abs/2406.06525), [U-ViT](https://arxiv.org/abs/2209.12152), and [MAR](https://arxiv.org/abs/2406.11838).
 
-The `scripts` folder includes some helper files: 
+## Abstract
+
+Evaluating the quality of deep generative models in computer vision is challenging, especially in aligning with human judgment. Traditional metrics such as Fréchet Inception Distance (FID) are widely used, but their standard computation introduces an unaddressed sampling bias.  This involves generating a representative image sample according to a uniform class distribution, which completely ignores the class distribution underlying the ground truth dataset. This paper highlights the statistical error caused by this systemic bias and its impact on ground truth based metrics. We further empirically investigate its influence on FID by generating images according to uniform and ground truth class distributions. Our experiments on eleven major generative models reveal discrepancies in FID results when different sampling methods are used. Based on our theoretical and empirical findings, we advocate for sampling according to the class distribution of the ground truth dataset to ensure consistent and reliable evaluations.
+
+## Repository Structure
+Each of the eleven models has an independent folder, if you want to use these models to generate images based on your own research needs, first run `git clone https://github.com/revqx/fid-flaws`, then `cd` into the model folder you want to test. Terminal commands to generate images for each model can be found in the Image Generation section.
+
+The `scripts` folder includes helper files to generate the different class distributions for ~50k images as discussed in the paper and especially the real class distribution underlying ImageNet1k: 
+
 ```shell
 ├── create_distribution_folders.py
 └── generate_distribution_files.py
 ```
-The `generate_distribution_files.py` script is used to generate distribution `.txt` files, while the `create_distribution_folders.py` script is used to create different distribution folders for FiD score evaluation.
 
-## Terminal Command Guidance 🔥
+The `generate_distribution_files.py` script is used to generate distribution `.txt` files, while the `create_distribution_folders.py` script is used to create three image folders containing images according to the real class distribution as well as the two variations of uniform class distributions.
+
+These folders can then be used as input for FID calculation with e.g. [dgm-eval](https://github.com/layer6ai-labs/dgm-eval).
+
+## Image Generation 🔥
 First, you need to run the following commands to make sure all the submodules are activated correctly:
 ```shell
 git clone https://github.com/revqx/fid-flaws
@@ -128,7 +122,7 @@ python generation_single_gpu.py \
 ```
 
 
-## Preliminary FID Results
+## FID Results (using dgm-eval)
 
 | Model                   | Uniform (50 per class) | Uniform (50k times random choice of 1000 classes) | Real (Underlying ImageNet distribution ~50k) |
 |-------------------------|------------------------|---------------------------------------------------|----------------------------------------------|
@@ -144,7 +138,7 @@ python generation_single_gpu.py \
 | U-DiT                   | 2.98 | 2.95 | 2.93 |
 | Mar                     | 2.18 | 2.21 | 2.15 |
 
-## Preliminary FDD Result
+## FDD Result (using dgm-eval)
 
 | Model                   | Uniform (50 per class) | Uniform (50k times random choice of 1000 classes) | Real (Underlying ImageNet distribution ~50k) |
 |-------------------------|------------------------|---------------------------------------------------|----------------------------------------------|

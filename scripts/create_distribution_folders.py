@@ -1,5 +1,5 @@
 """
-This script prepares image datasets for deep generative model evaluation by creating several distributions of images:
+This script prepares image datasets for deep generative model evaluation by creating several distributions given a folder of generated images:
 1. A real distribution as specified by an input file.
 2. A uniform distribution with exactly 50 images per class.
 3. A randomly uniform distribution with a total of 50,000 images sampled across all classes.
@@ -11,7 +11,7 @@ python create_distribution_folders.py --generated_images_folder <path_to_generat
 
 Args:
 --generated_images_folder (str): Path to the folder containing the generated images.
---dist_file (str): Path to the txt file containing the real image distribution.
+--dist_file (str): Path to the txt file containing the real image distribution. This can be generated using generate_distribution_files.py
 
 Supports two file formats:
     - 'class_{class_num}_{...}.png': Direct class number in the filename.
@@ -52,7 +52,7 @@ def sample_images(class_image_paths_dict, num_samples):
 
 def prepare_class_image_dict(source_folder):
     """
-    Organizes images by class from a specified folder into a dictionary.
+    Organizes images by class from a specified folder into a path dictionary.
     Supports two file formats.
         - 'class_{class_num}_{...}.png': Direct class number in the filename.
         - '{000000-999999}.png': Sequential filenames where every 80 files belong to the next class.
@@ -86,7 +86,7 @@ def main(args):
     # Set random seed 42 for reproducibility
     random.seed(42)
 
-    # Create folders for the different distributions one level above the generated images folder
+    # Create folders for the different distributions at the directory level of the generated images folder
     base_folder = os.path.dirname(generated_images_folder)
     real_folder = os.path.join(base_folder, 'real')
     uniform_50_folder = os.path.join(base_folder, 'uniform_50')
