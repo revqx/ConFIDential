@@ -138,7 +138,24 @@ python generation_single_gpu.py \
 | LDM                     | 3.56 | 3.54 | 3.53 |
 | StyleGAN-XL (seed=1000) | 2.60 | 2.56 | 2.60 |
 | StyleGAN-XL (seed=42)   | 2.61 | 2.55 | 2.56 |
-| ADM                     |      |      |      |
 | MaskedDiT               | 2.32 | 2.34 | 2.30 |
+| LlamaGen                | 2.81 | 2.79 | 2.78 |
+| U-ViT                   | 2.73 | 2.70 | 2.66 |
+| U-DiT                   | 2.98 | 2.95 | 2.93 |
+| Mar                     | 2.18 | 2.21 | 2.15 |
 
-## Preliminary FDD Results (seed=42)
+## Preliminary FDD Result
+
+| Model                   | Uniform (50 per class) | Uniform (50k times random choice of 1000 classes) | Real (Underlying ImageNet distribution ~50k) |
+|-------------------------|------------------------|---------------------------------------------------|----------------------------------------------|
+| VAR (seed=42)           | 117.5 | 118.0 | 117.39 |
+| MDT (seed=42)           | 57.82 | 58.0 | 57.5 |
+| DiT                     | 68.0 | 68.5 | 67.5 |
+| LDM                     | 132.45 | 133.53 | 133.56 |
+| StyleGAN-XL (seed=1000) | 133.85 | 133.80 | 132.88 |
+| StyleGAN-XL (seed=42)   | 133.56 | 133.53 | 132.45 |
+| MaskedDiT               | 59.0 | 59.5 | 58.5 |
+| LlamaGen                | 68.0 | 67.5 | 67.0 |
+| U-ViT                   | 64.87 | 65.36 | 65.56 |
+| U-DiT                   | 70.5 | 70.0 | 69.5 |
+| Mar                     | 55.0 | 56.0 | 54.5 |
