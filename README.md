@@ -49,6 +49,7 @@ python generation_single_gpu.py
 
 To generate 50 images for each class in ImageNet by using [MDTv2](https://arxiv.org/abs/2303.14389) model, please run the following commands:
 ```shell
+cd MDT
 conda create -n MDT python==3.10
 conda init
 conda activate MDT
@@ -66,6 +67,7 @@ sh generation.bash
 
 To generate 50 images for each class in ImageNet by using [MaskDiT](https://arxiv.org/abs/2306.09305) model, please run the following commands:
 ```shell
+cd MaskDiT
 conda create -n MaskDiT python==3.10
 conda activate MaskDiT
 pip install -r requirements.txt
@@ -88,6 +90,7 @@ sh buildup.bash
 
 To generate 50 images for each class in ImageNet by using [VAR](https://arxiv.org/abs/2404.02905) model, please run the following commands:
 ```shell
+cd VAR
 conda create -n var python==3.10
 pip install -r requirements.txt
 python generation_single_gpu.py
@@ -95,6 +98,7 @@ python generation_single_gpu.py
 
 To generate 50 images for each class in ImageNet by using [DiT](https://arxiv.org/abs/2212.09748) model, please run the following commands:
 ```shell
+cd DiT
 conda env create -f environment.yml
 conda activate DiT
 wget https://dl.fbaipublicfiles.com/DiT/models/DiT-XL-2-256x256.pt
@@ -108,6 +112,7 @@ python sample.py \
 
 To generate 50 images for each class in ImageNet by using [mar](https://arxiv.org/abs/2406.11838) model, please run the following commands:
 ```shell
+cd mar
 conda env create -f environment.yaml
 conda activate mar
 
@@ -121,6 +126,89 @@ python generation_single_gpu.py \
 --tf32 # the tf32 will accelerate the generation 
 ```
 
+To generate 50 images for each class in ImageNet by using [LlamaGen](https://arxiv.org/abs/2406.06525) model, please run the following commands:
+```shell
+cd LlamaGen
+conda env create -n LlamaGen python==3.11
+conda activate LlamaGen
+pip install -r requirements.txt
+
+mkdir pretrained_models
+cd pretrained_models
+wget https://huggingface.co/FoundationVision/LlamaGen/resolve/main/vq_ds16_c2i.pt
+wget https://huggingface.co/FoundationVision/LlamaGen/resolve/main/c2i_3B_384.pt
+cd ..
+
+python generation_single_gpu.py \
+--batch-size 32 \
+--cfg-scale 1.65 \
+--gpt-model GPT-3B \
+--ckpt ./pretrained_models/c2i_3B_384.pt \
+--vq-ckpt ./pretrained_models/vq_ds16_c2i.pt \
+--from-fsdp \
+--num-samples-per-class 50 \
+--tf32 # the tf32 will accelerate the generation 
+```
+
+To generate 50 images for each class in ImageNet by using [U-DiT](https://arxiv.org/abs/2405.02730) model, please run the following commands:
+```shell
+cd U-DiT
+conda env create -n U-DiT python==3.11
+conda activate U-DiT
+pip install -r requirements.txt
+
+wget https://huggingface.co/yuchuantian/U-DiT/resolve/main/U-DiT-L-1000k.pt
+
+python generation_balanced.py \
+--batch-size 32 \
+--model U-DiT-L \
+--cfg-scale 1.5 \
+--image-size 256 \
+--tf32 \ # the tf32 will accelerate the generation 
+--ckpt U-DiT-L-1000k.pt 
+```
+
+To generate 50 images for each class in ImageNet by using [U-ViT](https://arxiv.org/abs/2209.12152) model, please run the following commands:
+```shell
+cd U-ViT
+conda env create -n U-ViT python==3.11
+conda activate U-ViT
+pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu116  # install torch-1.13.1
+pip install accelerate==0.12.0 absl-py ml_collections einops wandb ftfy==6.1.1 transformers==4.23.1
+
+apt install gdown
+gdown 13StUdrjaaSXjfqqF7M47BzPyhMAArQ4u
+gdown 10nbEiFd4YCHlzfTkJjZf45YcSMCN34m6
+
+pip install -U xformers
+pip install -U --pre triton
+
+python generation_single_gpu.py \
+--batch-size 32 \
+--cfg-scale 0.4 \
+--steps 50 \
+--num-samples-per-class 50 \
+--tf32 # the tf32 will accelerate the generation 
+```
+
+## FiD score calculation
+To calculate the FiD score by using the dgm-eval repo [dgm-eval](https://github.com/layer6ai-labs/dgm-eval), please run the following commands:
+```shell
+conda create --name dgm-eval pip python==3.10
+conda activate dgm-eval
+git clone git@github.com:layer6ai-labs/dgm-eval
+cd dgm-eval
+pip install -e .
+
+python -m dgm_eval \
+/YOUR_IMAGENET_DATASET_PATH  \
+/YOUR_GENERATED_IMAGES_PATH \
+--model inception \
+--metrics fd \
+--save \
+--nsample 1500000
+```
+You may choose to change the `model` flag to `inception` or `dinov2` to calculate the corresponding score. If you use the `save` flag, the calculated representation of each image folder will be saved in the `dgm-eval/experiments` folder. You will find the file name from the terminal returned result.
 
 ## FID Results (using dgm-eval)
 
