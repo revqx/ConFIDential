@@ -22,3 +22,9 @@
 [submodule "DiT"]
 	path = DiT
 	url = https://github.com/YecanLee/DiT
+[submodule "LlamaGen"]
+	path = LlamaGen
+	url = https://github.com/YecanLee/LlamaGen
+[submodule "U-ViT"]
+	path = U-ViT
+	url = https://github.com/YecanLee/U-ViT
